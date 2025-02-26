@@ -41,5 +41,11 @@ namespace AplicativoMejorado.Controllers
             return obj.GuardarCambiosTipoMedicamento(objTipoMedicamento);
         }
 
+        public int EliminarTipoMedicamento(int idTipoMedicamento)
+        {
+            TipoMedicamentoDAL objDAL = new TipoMedicamentoDAL();
+            return objDAL.EliminarTipoMedicamento(idTipoMedicamento);
+        }
+
     }
 }

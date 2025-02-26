@@ -152,14 +152,6 @@ namespace CapaDatos
                                 oTipoMedicamentoCLS.descripcion = dr.IsDBNull(posDescripcion) ? " " : dr.GetString(posDescripcion);
                             }
                         }
-                        else
-                        {
-                            // Si no hay resultados, dejamos el objeto con valores por defecto
-                            oTipoMedicamentoCLS.idTipoMedicamento = 0;
-                            oTipoMedicamentoCLS.nombre = "";
-                            oTipoMedicamentoCLS.descripcion = "";
-                        }
-
                         cn.Close();
                     }
                 }
@@ -202,6 +194,30 @@ namespace CapaDatos
         }
 
 
+        public int EliminarTipoMedicamento(int idTipoMedicamento)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("UPDATE TipoMedicamento SET BHABILITADO = 0 WHERE IIDTIPOMEDICAMENTO = @idTipoMedicamento", cn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idTipoMedicamento", idTipoMedicamento);
+
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
 
 
 

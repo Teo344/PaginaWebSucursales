@@ -75,3 +75,13 @@ function GuardarCambiosTipoMedicamento() {
 
     })
 }
+
+function Eliminar(id) {
+    if (!confirm("¿Está seguro de eliminar este tipo de medicamento?")) {
+        return;
+    }
+
+    fetchGet("TipoMedicamento/EliminarTipoMedicamento/?idTipoMedicamento=" + id, "text", function (res) {
+        listarTipoMedicamento();
+    });
+}
