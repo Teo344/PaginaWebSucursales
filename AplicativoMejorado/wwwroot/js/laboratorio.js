@@ -113,15 +113,13 @@ function GuardarCambioLaboratorios() {
                 icon: "success"
             });
 
-            // Cerrar el modal correctamente
             let modalElement = document.getElementById("editModal");
             let modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
 
-            // Eliminar manualmente el fondo oscuro si persiste
+
             document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
 
-            // Mostrar el toast de éxito
             let toast = new bootstrap.Toast(document.getElementById("toastSuccessEdit"));
             toast.show();
         });

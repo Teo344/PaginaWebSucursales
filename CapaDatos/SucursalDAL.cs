@@ -117,6 +117,96 @@ namespace CapaDatos
             return rpta;
         }
 
+        public int EliminarSucursal(int idSucursal)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("UPDATE Sucursal SET BHABILITADO = 0 WHERE IIDSUCURSAL = @idSucursal", cn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idSucursal", idSucursal);
+
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
+
+        public SucursalCLS recuperarSucursal(int idSucursal)
+        {
+            SucursalCLS obj = null;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspObtenerSucursal", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@idSucursal", idSucursal);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                obj = new SucursalCLS
+                                {
+                                    idSucursal = dr.GetInt32(0),
+                                    nombre = dr.IsDBNull(1) ? null : dr.GetString(1),
+                                    direccion = dr.IsDBNull(2) ? null : dr.GetString(2)
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error en ObtenerSucursal: {ex.Message}");
+                }
+            }
+            return obj;
+        }
+
+        public int GuardarCambioSucursal(SucursalCLS obj)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspActualizarSucursal", cn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@idSucursal", obj.idSucursal);
+                        cmd.Parameters.AddWithValue("@nombre", obj.nombre);
+                        cmd.Parameters.AddWithValue("@direccion", obj.direccion);
+
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
+
+
+
+
 
     }
 }

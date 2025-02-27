@@ -29,22 +29,26 @@ namespace CapaNegocio
             return obj.GuardarSucursal(objSucursal);
         }
 
+        public int EliminarSucursal(int idSucursal)
+        {
+            SucursalDAL objDAL = new SucursalDAL();
+            return objDAL.EliminarSucursal(idSucursal);
+        }
+
+
         public SucursalCLS recuperarSucursal(int idSucursal)
         {
             SucursalDAL obj = new SucursalDAL();
             return obj.recuperarSucursal(idSucursal);
         }
 
-        public int GuardarCambiosSucursal(SucursalCLS objSucursal)
+        public int GuardarCambioSucursal(SucursalCLS objSucursal)
         {
             SucursalDAL obj = new SucursalDAL();
-            return obj.GuardarCambiosSucursal(objSucursal);
+            return obj.GuardarCambioSucursal(objSucursal);
         }
 
-        public int EliminarSucursal(int idSucursal)
-        {
-            SucursalDAL objDAL = new SucursalDAL();
-            return objDAL.EliminarSucursal(idSucursal);
-        }
+
+
     }
 }
