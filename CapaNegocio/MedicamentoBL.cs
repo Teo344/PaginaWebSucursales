@@ -15,5 +15,31 @@ namespace CapaNegocio
             MedicamentoDAL obj = new MedicamentoDAL();
             return obj.listarMedicamentos();
         }
+
+
+        public int GuardarMedicamento(MedicamentoCLS objMedicamento)
+        {
+            MedicamentoDAL objDAL = new MedicamentoDAL();
+            return objDAL.GuardarMedicamento(objMedicamento);
+        }
+
+
+        public int EliminarMedicamento(int idMedicamento)
+        {
+            MedicamentoDAL objDAL = new MedicamentoDAL();
+            return objDAL.EliminarMedicamento(idMedicamento);
+        }
+
+        public MedicamentoCLS recuperarMedicamento(int idMedicamento)
+        {
+            MedicamentoDAL obj = new MedicamentoDAL();
+            return obj.recuperarMedicamento(idMedicamento);
+        }
+
+        public int GuardarCambioMedicamento(MedicamentoCLS objMedicamento)
+        {
+            MedicamentoDAL obj = new MedicamentoDAL();
+            return obj.GuardarCambioMedicamento(objMedicamento);
+        }
     }
 }

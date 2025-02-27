@@ -205,5 +205,32 @@ namespace CapaDatos
             return rpta;
         }
 
+        public List<LaboratorioCLS> ObtenerLaboratorios()
+        {
+            List<LaboratorioCLS> lista = new List<LaboratorioCLS>();
+
+            using (SqlConnection con = new SqlConnection(cadena))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT IIDLABORATORIO, NOMBRE FROM Laboratorio", con))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new LaboratorioCLS
+                            {
+                                idLaboratorio = Convert.ToInt32(dr["IIDLABORATORIO"]),
+                                nombre = dr["NOMBRE"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+
+
+
     }
 }

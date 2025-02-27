@@ -3,6 +3,7 @@
 }
 
 function set(idControl, valor) {
+
     document.getElementById(idControl).value = valor;
 }
 

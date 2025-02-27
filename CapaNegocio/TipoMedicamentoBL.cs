@@ -47,5 +47,18 @@ namespace CapaNegocio
             return obj.GuardarCambioTipoMedicamento(objTipoMedicamento);
         }
 
+        public List<TipoMedicamentoCLS> ObtenerTiposMedicamentos()
+        {
+            MedicamentoDAL obj = new MedicamentoDAL();
+            return obj.ObtenerTiposMedicamentos();
+        }
+
+        public List<LaboratorioCLS> ObtenerLaboratorios()
+        {
+            MedicamentoDAL obj = new MedicamentoDAL();
+            return obj.ObtenerLaboratorios();
+        }
+
+
     }
 }

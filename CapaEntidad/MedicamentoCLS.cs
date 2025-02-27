@@ -23,5 +23,8 @@ namespace CapaEntidad
 
         public string contenido { get; set; }
 
+        public int idTipoMedicamento { get; set; }
+        public int idLaboratorio { get; set; }
+
     }
 }

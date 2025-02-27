@@ -2,65 +2,235 @@
     ViewData["Title"] = "Index";
 }
 
+<h1 class="mb-4 text-center">Medicamento</h1>
 
-<h1 class="mb-4 text-center">Tipos de Medicamento</h1>
-
-
-<fieldset class="border p-4 rounded shadow-sm">
-    <legend class="w-auto px-3">Zonas de Operaciones</legend>
-
-    <form id="frmGuardarMedicamento" method="post" class="row g-3">
-
-        <div class="col-md-6">
-            <label for="inputidMedicamento" class="form-label">ID medicamento</label>
-            <input type="text" class="form-control" name="idMedicamento" id="idMedicamento" placeholder="Id del Medicamento">
-        </div>
-
-        <div class="col-md-6">
-            <label for="inputcodigo" class="form-label">Codigo</label>
-            <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Codigo">
-        </div>
-        <div class="col-md-6">
-            <label for="inputnombreMedicamento" class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nombreMedicamento" id="nombreMedicamento" placeholder="Nombre">
-        </div>
-        <div class="col-md-6">
-            <label for="inputtipoMedicamento" class="form-label">Tipo Medicamento</label>
-            <input type="text" class="form-control" name="tipoMedicamento" id="tipoMedicamento" placeholder="Tipo Medicamento">
-        </div>
-        <div class="col-md-6">
-            <label for="inputnombreLaboratorio" class="form-label">Laboratorio</label>
-            <input type="text" class="form-control" name="nombreLaboratorio" id="nombreLaboratorio" placeholder="Laboratorio">
-        </div>
-        <div class="col-md-6">
-            <label for="inputusoMedicamento " class="form-label">Uso de Medicamento</label>
-            <input type="text" class="form-control" name="usoMedicamento " id="usoMedicamento " placeholder="Uso del Medicamento">
-        </div>
-        <div class="col-md-6">
-            <label for="inputcontenido" class="form-label">Contenido</label>
-            <input type="text" class="form-control" name="contenido" id="contenido" placeholder="Contenido">
-        </div>
-
-        <div class="col-12 text-end mt-3">
-            <button type="button" class="btn btn-primary me-2" onclick="GuardarTipoMedicamento()">
-                <i class="bi bi-search"></i> Agregar
-            </button>
-            <button type="button" class="btn btn-primary me-2" onclick="GuardarCambiosTipoMedicamento()">
-                <i class="bi bi-search"></i> Modificar
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="LimpiarTipoMedicamento()">
-                <i class="bi bi-eraser"></i> Limpiar
-            </button>
-        </div>
-    </form>
-</fieldset>
-
-
-
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
+    Crear nuevo Medicamento
+</button>
 
 <div id="divTable" class="mt-4">
 </div>
 
+
+<!-- Modal para insertar un nuevo medicamento -->
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="insertModalLabel">Registrar Nuevo Medicamento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para registrar Medicamentos -->
+                <form id="frmCrearMedicamento" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código</label>
+                        <input type="number" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código" required>
+                        <div class="invalid-feedback">
+                            El código es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreMedicamento" class="form-label">Nombre del Medicamento</label>
+                        <input type="text" class="form-control" id="nombreMedicamento" name="nombreMedicamento" placeholder="Ingrese el nombre del medicamento" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="selectTipoMedicamento" class="form-label">Tipo de Medicamento</label>
+                        <select class="form-select" name="idTipoMedicamento" id="selectTipoMedicamento" required>
+                            <option value="">Seleccione un tipo</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="selectLaboratorio" class="form-label">Laboratorio</label>
+                        <select class="form-select" name="idLaboratorio" id="selectLaboratorio" required>
+                            <option value="">Seleccione un laboratorio</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="usoMedicamento" class="form-label">Uso del Medicamento</label>
+                        <input type="text" class="form-control" id="usoMedicamento" name="usoMedicamento" placeholder="Ingrese el uso del medicamento" required>
+                        <div class="invalid-feedback">
+                            El uso es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contenido" class="form-label">Contenido</label>
+                        <input type="text" class="form-control" id="contenido" name="contenido" placeholder="Ingrese el contenido" required>
+                        <div class="invalid-feedback">
+                            El contenido es requerido.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarDatos('frmCrearMedicamento')">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Toast de éxito -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastSuccess" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Medicamento guardado correctamente.
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastSuccessEdit" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Medicamento editado correctamente.
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="insertModalLabel">Actualizar Medicamenti</h5>
+                <h4 id="MensajePersonalizado"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Formulario para registrar editar laboratorio -->
+                <form id="frmEditar" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <input type="number" class="form-control" id="editid" name="idMedicamento" placeholder="Ingrese el id" required readonly>
+                        <div class="invalid-feedback">
+                            El ID es requerido.
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editcodigo" name="codigo" placeholder="Ingrese el codigo" required>
+                        <div class="invalid-feedback">
+                            El codigo es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="editnombreMedicamento" name="nombreMedicamento" placeholder="Ingrese el nombre del medicamento" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerida.
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <label for="selectTipoMedicamento" class="form-label">Tipo Medicamento</label>
+                        <select class="form-select" name="tipoMedicamento" id="editselectTipoMedicamento" required>
+                            <option value="">Seleccione un tipo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="selectLaboratorio" class="form-label">Laboratorio</label>
+                        <select class="form-select" name="nombreLaboratorio" id="editselectLaboratorio" required>
+                            <option value="">Seleccione un laboratorio</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="editusoMedicamento" name="usoMedicamento" placeholder="Ingrese el nombre del medicamento" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerida.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="editcontenido" name="contenido" placeholder="Ingrese el nombre del medicamento" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerida.
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarDatos('frmEditar')">Cancelar</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script src="~/js/generic.js"></script>
 <script src="~/js/medicamento.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let formulario = document.getElementById("frmCrearMedicamento");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            if (!formulario.checkValidity()) {
+                formulario.classList.add("was-validated");
+                return;
+            }
+
+            // Si la validación pasa, ejecuta GuardarLaboratorio()
+            GuardarMedicamento();
+        });
+    });
+
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let formulario = document.getElementById("frmEditar");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            if (!formulario.checkValidity()) {
+                formulario.classList.add("was-validated");
+                return;
+            }
+
+            GuardarCambioMedicamento();
+        });
+    });
+
+</script>
