@@ -76,12 +76,16 @@ function GuardarCambiosTipoMedicamento() {
     })
 }
 
-function Eliminar(id) {
-    if (!confirm("¿Está seguro de eliminar este tipo de medicamento?")) {
-        return;
-    }
 
-    fetchGet("TipoMedicamento/EliminarTipoMedicamento/?idTipoMedicamento=" + id, "text", function (res) {
-        listarTipoMedicamento();
-    });
+function Eliminar(id) {
+    let modal = new bootstrap.Modal(document.getElementById('modal'));
+    modal.show();
+    // Asignamos la acción al botón de confirmar dentro del modal
+    document.getElementById("confirmar").onclick = function () {
+        fetchGet("TipoMedicamento/EliminarTipoMedicamento/?idTipoMedicamento=" + id, "text", function (res) {
+            listarTipoMedicamento();
+            modal.hide();
+
+        });
+    };
 }

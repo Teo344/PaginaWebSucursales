@@ -90,8 +90,120 @@ namespace CapaDatos
             return lista;
         }
 
+        public int GuardarLaboratorio(LaboratorioCLS obj)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("insert into Laboratorio(NOMBRE, DIRECCION, BHABILITADO, PERSONACONTACTO)values (@nombre,@direccion,1,@personaContacto);", cn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.Parameters.AddWithValue("@nombre", obj.nombre);
+                        cmd.Parameters.AddWithValue("@direccion", obj.direccion);
+                        cmd.Parameters.AddWithValue("@personaContacto", obj.personaContacto);
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
 
+        public int EliminarLaboratorio(int idLaboratorio)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("UPDATE Laboratorio SET BHABILITADO = 0 WHERE IIDLABORATORIO = @idLaboratorio", cn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idLaboratorio", idLaboratorio);
 
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
+
+        public LaboratorioCLS recuperarLaboratorio(int idLaboratorio)
+        {
+            LaboratorioCLS obj = null;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspObtenerLaboratorio", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@idLaboratorio", idLaboratorio);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                obj = new LaboratorioCLS
+                                {
+                                    idLaboratorio = dr.GetInt32(0),
+                                    nombre = dr.IsDBNull(1) ? null : dr.GetString(1),
+                                    direccion = dr.IsDBNull(2) ? null : dr.GetString(2),
+                                    personaContacto = dr.IsDBNull(3) ? null : dr.GetString(3)
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error en ObtenerLaboratorio: {ex.Message}");
+                }
+            }
+            return obj;
+        }
+
+        public int GuardarCambioLaboratorios(LaboratorioCLS obj)
+        {
+            int rpta = 0;
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                try
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("uspActualizarLaboratorio", cn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@idLaboratorio", obj.idLaboratorio);
+                        cmd.Parameters.AddWithValue("@nombre", obj.nombre);
+                        cmd.Parameters.AddWithValue("@direccion", obj.direccion);
+                        cmd.Parameters.AddWithValue("@personaContacto", obj.personaContacto);
+
+                        rpta = cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+                    rpta = 0;
+                    throw;
+                }
+            }
+            return rpta;
+        }
 
     }
 }

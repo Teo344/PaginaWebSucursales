@@ -1,49 +1,75 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
+﻿    @{
+        ViewData["Title"] = "Index";
+    }
 
 
-<h1 class="mb-4 text-center">Tipos de Medicamento</h1>
+    <h1 class="mb-4 text-center">Tipos de Medicamento</h1>
 
 
-<fieldset class="border p-4 rounded shadow-sm">
-    <legend class="w-auto px-3">Zonas de Operaciones</legend>
+    <fieldset class="border p-4 rounded shadow-sm">
+        <legend class="w-auto px-3">Zonas de Operaciones</legend>
 
-    <form id="frmGuardarTipoMedicamento" method="post" class="row g-3">
+        <form id="frmGuardarTipoMedicamento" method="post" class="row g-3">
 
-        <div class="col-md-6">
-            <label for="inputNombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="idTipoMedicamento" id="idTipoMedicamento" placeholder="Id del Medicamento">
+            <div class="col-md-6">
+                <label for="inputNombre" class="form-label">Id del Medicamento</label>
+                <input type="text" class="form-control" name="idTipoMedicamento" id="idTipoMedicamento" placeholder="Id del Medicamento" readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputNombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del tipo de medicamento">
+            </div>
+            <div class="col-md-6">
+                <label for="inputDireccion" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion del Tipo Medicamento">
+            </div>
+
+            <div class="col-12 text-end mt-3">
+                <button type="button" class="btn btn-primary me-2" onclick="GuardarTipoMedicamento()">
+                    <i class="bi bi-search"></i> Agregar
+                </button>
+                <button type="button" class="btn btn-primary me-2" onclick="GuardarCambiosTipoMedicamento()">
+                    <i class="bi bi-search"></i> Modificar
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="LimpiarTipoMedicamento()">
+                    <i class="bi bi-eraser"></i> Limpiar
+                </button>
+            </div>
+        </form>
+    </fieldset>
+
+
+
+
+    <div id="divTable" class="mt-4">
+    </div>
+
+
+
+    <!-- Modal de Confirmación para Eliminar -->
+<div class="modal" id="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmacion para borrar elemento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Desea borrar el elemento.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmar">Borrar</button>
+            </div>
         </div>
-
-        <div class="col-md-6">
-            <label for="inputNombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del tipo de medicamento">
-        </div>
-        <div class="col-md-6">
-            <label for="inputDireccion" class="form-label">Descripcion</label>
-            <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion del Tipo Medicamento">
-        </div>
-
-        <div class="col-12 text-end mt-3">
-            <button type="button" class="btn btn-primary me-2" onclick="GuardarTipoMedicamento()">
-                <i class="bi bi-search"></i> Agregar
-            </button>
-            <button type="button" class="btn btn-primary me-2" onclick="GuardarCambiosTipoMedicamento()">
-                <i class="bi bi-search"></i> Modificar
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="LimpiarTipoMedicamento()">
-                <i class="bi bi-eraser"></i> Limpiar
-            </button>
-        </div>
-    </form>
-</fieldset>
-
-
-
-
-<div id="divTable" class="mt-4">
+    </div>
 </div>
 
-<script src="~/js/generic.js"></script>
-<script src="~/js/tipoMedicamento.js"></script>
+
+
+
+
+
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/tipoMedicamento.js"></script>

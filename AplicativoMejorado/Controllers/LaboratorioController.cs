@@ -23,6 +23,31 @@ namespace AplicativoMejorado.Controllers
             return obj.filtrarLaboratorios(objLaboratorio);
         }
 
+        public int GuardarLaboratorio(LaboratorioCLS objLaboratorio)
+        {
+           LaboratorioDAL obj = new LaboratorioDAL();
+            return obj.GuardarLaboratorio(objLaboratorio);
+        }
+
+        public int EliminarLaboratorio(int idLaboratorio)
+        {
+            LaboratorioDAL objDAL = new LaboratorioDAL();
+            return objDAL.EliminarLaboratorio(idLaboratorio);
+        }
+
+
+        public LaboratorioCLS recuperarLaboratorio(int idLaboratorio)
+        {
+            LaboratorioDAL obj = new LaboratorioDAL();
+            return obj.recuperarLaboratorio(idLaboratorio);
+        }
+
+        public int GuardarCambioLaboratorios(LaboratorioCLS objLaboratorio)
+        {
+            LaboratorioDAL obj = new LaboratorioDAL();
+            return obj.GuardarCambioLaboratorios(objLaboratorio);
+        }
+
 
     }
 }
