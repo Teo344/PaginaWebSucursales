@@ -28,22 +28,23 @@ namespace CapaNegocio
             return obj.GuardarTipoMedicamento(objTipoMedicamento);
         }
 
+        public int EliminarTipoMedicamento(int idTipoMedicamento)
+        {
+            TipoMedicamentoDAL objDAL = new TipoMedicamentoDAL();
+            return objDAL.EliminarTipoMedicamento(idTipoMedicamento);
+        }
+
+
         public TipoMedicamentoCLS recuperarTipoMedicamento(int idTipoMedicamento)
         {
             TipoMedicamentoDAL obj = new TipoMedicamentoDAL();
             return obj.recuperarTipoMedicamento(idTipoMedicamento);
         }
 
-        public int GuardarCambiosTipoMedicamento(TipoMedicamentoCLS objTipoMedicamento)
+        public int GuardarCambioTipoMedicamento(TipoMedicamentoCLS objTipoMedicamento)
         {
             TipoMedicamentoDAL obj = new TipoMedicamentoDAL();
-            return obj.GuardarCambiosTipoMedicamento(objTipoMedicamento);
-        }
-
-        public int EliminarTipoMedicamento(int idTipoMedicamento)
-        {
-            TipoMedicamentoDAL objDAL = new TipoMedicamentoDAL();
-            return objDAL.EliminarTipoMedicamento(idTipoMedicamento);
+            return obj.GuardarCambioTipoMedicamento(objTipoMedicamento);
         }
 
     }

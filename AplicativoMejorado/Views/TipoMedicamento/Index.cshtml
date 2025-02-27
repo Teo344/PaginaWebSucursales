@@ -1,66 +1,130 @@
-﻿    @{
-        ViewData["Title"] = "Index";
-    }
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="mb-4 text-center">Tipos de Medicamento</h1>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
+    Crear nuevo Tipo Medicamento
+</button>
+
+<div id="divTable" class="mt-4">
+</div>
 
 
-    <h1 class="mb-4 text-center">Tipos de Medicamento</h1>
-
-
-    <fieldset class="border p-4 rounded shadow-sm">
-        <legend class="w-auto px-3">Zonas de Operaciones</legend>
-
-        <form id="frmGuardarTipoMedicamento" method="post" class="row g-3">
-
-            <div class="col-md-6">
-                <label for="inputNombre" class="form-label">Id del Medicamento</label>
-                <input type="text" class="form-control" name="idTipoMedicamento" id="idTipoMedicamento" placeholder="Id del Medicamento" readonly>
-            </div>
-
-            <div class="col-md-6">
-                <label for="inputNombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del tipo de medicamento">
-            </div>
-            <div class="col-md-6">
-                <label for="inputDireccion" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion del Tipo Medicamento">
-            </div>
-
-            <div class="col-12 text-end mt-3">
-                <button type="button" class="btn btn-primary me-2" onclick="GuardarTipoMedicamento()">
-                    <i class="bi bi-search"></i> Agregar
-                </button>
-                <button type="button" class="btn btn-primary me-2" onclick="GuardarCambiosTipoMedicamento()">
-                    <i class="bi bi-search"></i> Modificar
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="LimpiarTipoMedicamento()">
-                    <i class="bi bi-eraser"></i> Limpiar
-                </button>
-            </div>
-        </form>
-    </fieldset>
-
-
-
-
-    <div id="divTable" class="mt-4">
-    </div>
-
-
-
-    <!-- Modal de Confirmación para Eliminar -->
-<div class="modal" id="modal" tabindex="-1">
+<!-- Modal para insertar un nuevo laboratorio -->
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmacion para borrar elemento</h5>
+                <h5 class="modal-title" id="insertModalLabel">Registrar Nuevo Tipo de Medicamento</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Desea borrar el elemento.</p>
+
+                <!-- Formulario para registrar laboratorio -->
+                <form id="frmCrearTipoMedicamento" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevaDireccion" class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion" required>
+                        <div class="invalid-feedback">
+                            La descripcion es requerida.
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarDatos('frmCrearTipoMedicamento')">Cancelar</button>
+                    </div>
+
+                </form>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmar">Borrar</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Toast de éxito -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastSuccess" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Tipo Medicamento guardado correctamente.
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastSuccessEdit" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Tipo de Medicamento actualizado correctamente.
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para editar -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="insertModalLabel">Actualiza Tipo de MEDICAMENTO</h5>
+                <h4 id="MensajePersonalizado"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Formulario para registrar editar laboratorio -->
+                <form id="frmEditar" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="editid" name="idTipoMedicamento" placeholder="Ingrese el id" required readonly>
+                        <div class="invalid-feedback">
+                            El ID es requerido.
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editnombre" name="nombre" placeholder="Ingrese el nombre" required>
+                        <div class="invalid-feedback">
+                            El nombre es requerido.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="editdescripcion" name="descripcion" placeholder="Ingrese la dirección" required>
+                        <div class="invalid-feedback">
+                            La descripcion es requerida.
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarDatos('frmEditar')">Cancelar</button>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     </div>
@@ -69,7 +133,43 @@
 
 
 
+<script src="~/js/generic.js"></script>
+<script src="~/js/tipoMedicamento.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let formulario = document.getElementById("frmCrearTipoMedicamento");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            if (!formulario.checkValidity()) {
+                formulario.classList.add("was-validated");
+                return;
+            }
+
+            // Si la validación pasa, ejecuta GuardarLaboratorio()
+            GuardarTipoMedicamento();
+        });
+    });
+
+</script>
 
 
-    <script src="~/js/generic.js"></script>
-    <script src="~/js/tipoMedicamento.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let formulario = document.getElementById("frmEditar");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            if (!formulario.checkValidity()) {
+                formulario.classList.add("was-validated");
+                return;
+            }
+
+            GuardarCambioTipoMedicamento();
+        });
+    });
+
+</script>

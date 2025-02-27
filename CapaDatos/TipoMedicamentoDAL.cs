@@ -116,14 +116,6 @@ namespace CapaDatos
         }
 
 
-
-
-
-
-
-
-
-
         public TipoMedicamentoCLS recuperarTipoMedicamento(int idTipoMedicamento)
         {
             TipoMedicamentoCLS oTipoMedicamentoCLS = new TipoMedicamentoCLS();  // Inicializamos el objeto para evitar null
@@ -166,7 +158,7 @@ namespace CapaDatos
             return oTipoMedicamentoCLS;
         }
 
-        public int GuardarCambiosTipoMedicamento(TipoMedicamentoCLS obj)
+        public int GuardarCambioTipoMedicamento(TipoMedicamentoCLS obj)
         {
             int rpta = 0;
             using (SqlConnection cn = new SqlConnection(cadena))
@@ -177,9 +169,9 @@ namespace CapaDatos
                     using (SqlCommand cmd = new SqlCommand("UPDATE TipoMedicamento SET NOMBRE = @nombre, DESCRIPCION = @descripcion WHERE IIDTIPOMEDICAMENTO = @idTipoMedicamento", cn))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.Parameters.AddWithValue("@idTipoMedicamento", obj.idTipoMedicamento);
                         cmd.Parameters.AddWithValue("@nombre", obj.nombre);
                         cmd.Parameters.AddWithValue("@descripcion", obj.descripcion);
-                        cmd.Parameters.AddWithValue("@idTipoMedicamento", obj.idTipoMedicamento);
 
                         rpta = cmd.ExecuteNonQuery();
                     }
@@ -219,7 +211,7 @@ namespace CapaDatos
             return rpta;
         }
 
-        
+
 
     }
 }
