@@ -8,6 +8,9 @@
     Crear nuevo Medicamento
 </button>
 
+<br>
+<br>
+
 <div id="divTable" class="mt-4">
 </div>
 
@@ -115,7 +118,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="insertModalLabel">Actualizar Medicamenti</h5>
+                <h5 class="modal-title" id="insertModalLabel">Actualizar Medicamento</h5>
                 <h4 id="MensajePersonalizado"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -124,7 +127,7 @@
                 <!-- Formulario para registrar editar laboratorio -->
                 <form id="frmEditar" class="needs-validation" novalidate>
                     <div class="mb-3">
-                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <label for="nuevoNombre" class="form-label">Id del Medicamento</label>
                         <input type="number" class="form-control" id="editid" name="idMedicamento" placeholder="Ingrese el id" required readonly>
                         <div class="invalid-feedback">
                             El ID es requerido.
@@ -133,14 +136,14 @@
 
 
                     <div class="mb-3">
-                        <label for="nuevoNombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editcodigo" name="codigo" placeholder="Ingrese el codigo" required>
+                        <label for="nuevoNombre" class="form-label">Codigo del Medicamento</label>
+                        <input type="number" class="form-control" id="editcodigo" name="codigo" placeholder="Ingrese el codigo" required>
                         <div class="invalid-feedback">
                             El codigo es requerido.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <label for="nuevaDireccion" class="form-label">Nombre del Medicamento</label>
                         <input type="text" class="form-control" id="editnombreMedicamento" name="nombreMedicamento" placeholder="Ingrese el nombre del medicamento" required>
                         <div class="invalid-feedback">
                             El nombre es requerida.
@@ -163,7 +166,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <label for="nuevaDireccion" class="form-label">Uso del Medicamento </label>
                         <input type="text" class="form-control" id="editusoMedicamento" name="usoMedicamento" placeholder="Ingrese el nombre del medicamento" required>
                         <div class="invalid-feedback">
                             El nombre es requerida.
@@ -171,7 +174,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nuevaDireccion" class="form-label">Dirección</label>
+                        <label for="nuevaDireccion" class="form-label">Contenido</label>
                         <input type="text" class="form-control" id="editcontenido" name="contenido" placeholder="Ingrese el nombre del medicamento" required>
                         <div class="invalid-feedback">
                             El nombre es requerida.

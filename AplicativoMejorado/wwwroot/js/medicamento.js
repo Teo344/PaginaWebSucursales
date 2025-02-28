@@ -25,52 +25,48 @@ function LimpiarMedicamento() {
 }
 
 function cargarTiposMedicamentos() {
-    fetch("/Medicamento/ObtenerTiposMedicamentos")
-        .then(response => response.json())
-        .then(data => {
-            let selects = [
-                document.getElementById("selectTipoMedicamento"),
-                document.getElementById("editselectTipoMedicamento")
-            ];
+    fetchGet("Medicamento/ObtenerTiposMedicamentos", "json", function (data) {
+        let selects = [
+            document.getElementById("selectTipoMedicamento"),
+            document.getElementById("editselectTipoMedicamento")
+        ];
 
-            selects.forEach(select => {
-                if (select) {
-                    select.innerHTML = ""; // Limpiar opciones previas
-                    data.forEach(item => {
-                        let option = document.createElement("option");
-                        option.value = item.idTipoMedicamento;
-                        option.text = item.nombre;
-                        select.add(option);
-                    });
-                }
-            });
-        })
-        .catch(error => console.error('Error:', error));
+        selects.forEach(select => {
+            if (select) {
+                select.innerHTML = ""; // Limpiar opciones previas
+                data.forEach(item => {
+                    let option = document.createElement("option");
+                    option.value = item.idTipoMedicamento;
+                    option.text = item.nombre;
+                    select.add(option);
+                });
+            }
+        });
+    });
 }
+
 
 function cargarLaboratorios() {
-    fetch("/Medicamento/ObtenerLaboratorios")
-        .then(response => response.json())
-        .then(data => {
-            let selects = [
-                document.getElementById("selectLaboratorio"),
-                document.getElementById("editselectLaboratorio")
-            ];
+    fetchGet("Medicamento/ObtenerLaboratorios", "json", function (data) {
+        let selects = [
+            document.getElementById("selectLaboratorio"),
+            document.getElementById("editselectLaboratorio")
+        ];
 
-            selects.forEach(select => {
-                if (select) {
-                    select.innerHTML = ""; // Limpiar opciones previas
-                    data.forEach(item => {
-                        let option = document.createElement("option");
-                        option.value = item.idLaboratorio;
-                        option.text = item.nombre;
-                        select.add(option);
-                    });
-                }
-            });
-        })
-        .catch(error => console.error('Error:', error));
+        selects.forEach(select => {
+            if (select) {
+                select.innerHTML = ""; // Limpiar opciones previas
+                data.forEach(item => {
+                    let option = document.createElement("option");
+                    option.value = item.idLaboratorio;
+                    option.text = item.nombre;
+                    select.add(option);
+                });
+            }
+        });
+    });
 }
+
 
 
 

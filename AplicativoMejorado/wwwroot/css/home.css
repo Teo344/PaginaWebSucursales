@@ -1,0 +1,30 @@
+﻿.icon-card {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+    .icon-card:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .icon-card i {
+        font-size: 50px;
+        color: #007bff;
+    }
+
+    .icon-card h5 {
+        margin-top: 15px;
+    }
+
+.container {
+    margin-top: 50px;
+}
+
+.text-center {
+    margin-bottom: 30px;
+}
